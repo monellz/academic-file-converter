@@ -157,6 +157,8 @@ def parse_bibtex_entry(
         publication = "*" + clean_bibtex_str(entry["journal"]) + "*"
     elif "publisher" in entry:
         publication = "*" + clean_bibtex_str(entry["publisher"]) + "*"
+    elif "series" in entry:
+        publication = "*" + clean_bibtex_str(entry["series"]) + "*"
     else:
         publication = ""
     page.yaml["publication"] = publication

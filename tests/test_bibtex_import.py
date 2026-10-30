@@ -52,3 +52,18 @@ def test_bibtex_types():
         _test_publication_type(metadata, "thesis")
     for metadata in _process_bibtex("book.bib", expected_count=2):
         _test_publication_type(metadata, "book")
+
+
+def test_series_is_used_as_publication_name():
+    metadata = import_bibtex.parse_bibtex_entry(
+        {
+            "ENTRYTYPE": "data",
+            "ID": "example-data",
+            "author": "Doe, Jane",
+            "title": "Example dataset",
+            "series": "Data 12",
+            "year": "2026",
+        },
+        dry_run=True,
+    )
+    assert metadata.yaml["publication"] == "*Data 12*"
