@@ -67,3 +67,17 @@ def test_series_is_used_as_publication_name():
         dry_run=True,
     )
     assert metadata.yaml["publication"] == "*Data 12*"
+
+
+def test_entry_type_is_used_when_venue_is_missing():
+    metadata = import_bibtex.parse_bibtex_entry(
+        {
+            "ENTRYTYPE": "data",
+            "ID": "example-data",
+            "author": "Doe, Jane",
+            "title": "Example dataset",
+            "year": "2026",
+        },
+        dry_run=True,
+    )
+    assert metadata.yaml["publication"] == "*data*"

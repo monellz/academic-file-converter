@@ -160,7 +160,9 @@ def parse_bibtex_entry(
     elif "series" in entry:
         publication = "*" + clean_bibtex_str(entry["series"]) + "*"
     else:
-        publication = ""
+        # Keep generated front matter valid for uncommon BibTeX types that do
+        # not carry venue metadata (for example, DBLP's `data` entries).
+        publication = "*" + clean_bibtex_str(entry.get("ENTRYTYPE", "publication")) + "*"
     page.yaml["publication"] = publication
 
     if "keywords" in entry:
